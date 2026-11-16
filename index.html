@@ -10,24 +10,10 @@
 <body>
   <header class="topbar">
     <div><h1>MONITORISTA</h1><p>Control de spots publicitarios</p></div>
-    <div id="userBar" class="userbar hidden"><span id="userEmail"></span><button id="logoutBtn" class="btn btn-light">Cerrar sesión</button></div>
   </header>
 
   <main>
-    <section id="loginView" class="login-card card">
-      <h2>Acceso al sistema</h2>
-      <p class="muted">Ingrese con la cuenta que le proporcionó el administrador.</p>
-      <form id="loginForm">
-        <label for="email">Correo electrónico</label>
-        <input id="email" type="email" autocomplete="username" required>
-        <label for="password">Contraseña</label>
-        <input id="password" type="password" autocomplete="current-password" required>
-        <button class="btn btn-primary full" type="submit">Iniciar sesión</button>
-      </form>
-      <p id="loginMessage" class="message" role="status"></p>
-    </section>
-
-    <section id="appView" class="hidden">
+    <section id="appView">
       <div class="layout">
         <aside class="card">
           <div class="section-heading"><h2>Canales</h2><button id="refreshBtn" class="btn btn-light" title="Actualizar">↻</button></div>

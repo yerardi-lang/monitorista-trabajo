@@ -1,15 +1,13 @@
 /* CONFIGURACIÓN: reemplazar estos dos valores con los del proyecto Supabase del trabajo. */
-const SUPABASE_URL = "https://qqezrhvqiaqjnoivkmtz.supabase.co/rest/v1/";
-const SUPABASE_ANON_KEY = "sb_publishable_TMyGQiyBAa-z4YF4wt-hZw_BORiQV1C";
+const SUPABASE_URL = "PEGA_AQUI_LA_URL_DEL_PROYECTO";
+const SUPABASE_ANON_KEY = "PEGA_AQUI_LA_PUBLISHABLE_KEY";
 
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PEGA_AQUI") && !SUPABASE_ANON_KEY.includes("PEGA_AQUI");
 const db = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 let channels = [], spots = [], selectedChannelIds = new Set(), editingChannelId = null, editingSpotId = null, toastTimer;
 const $ = id => document.getElementById(id);
 
- document.addEventListener('DOMContentLoaded', async () => {
-  $('loginForm').addEventListener('submit', login);
-  $('logoutBtn').addEventListener('click', logout);
+document.addEventListener('DOMContentLoaded', async () => {
   $('refreshBtn').addEventListener('click', refreshAll);
   $('searchInput').addEventListener('input', renderSpots);
   $('newChannelBtn').addEventListener('click', openNewChannel);
@@ -19,26 +17,12 @@ const $ = id => document.getElementById(id);
   $('channelForm').addEventListener('submit', saveChannel);
   $('spotForm').addEventListener('submit', saveSpot);
   document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => $(b.dataset.close).close()));
-  if (!configured) { $('loginMessage').textContent = 'Falta configurar la URL y la publishable key de Supabase en app.js.'; return; }
-  const { data: { session } } = await db.auth.getSession();
-  showSession(session);
-  db.auth.onAuthStateChange((_event, sessionNow) => showSession(sessionNow));
+  if (!configured) {
+    document.querySelector('main').innerHTML = '<section class="card"><h2>Falta configurar Supabase</h2><p>Reemplace la URL y la publishable key al inicio de app.js.</p></section>';
+    return;
+  }
+  await refreshAll();
 });
-
-function showSession(session) {
-  const logged = !!session;
-  $('loginView').classList.toggle('hidden', logged);
-  $('appView').classList.toggle('hidden', !logged);
-  $('userBar').classList.toggle('hidden', !logged);
-  $('userEmail').textContent = session?.user?.email || '';
-  if (logged) refreshAll();
-}
-async function login(e) {
-  e.preventDefault(); $('loginMessage').textContent = 'Ingresando…';
-  const { error } = await db.auth.signInWithPassword({ email: $('email').value.trim(), password: $('password').value });
-  $('loginMessage').textContent = error ? error.message : '';
-}
-async function logout() { await db.auth.signOut(); $('loginForm').reset(); }
 async function refreshAll() { await loadChannels(); await loadMonitorSpots(); }
 async function loadChannels() {
   const { data, error } = await db.from('canales').select('id,nombre,color').order('nombre');
