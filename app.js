@@ -1,6 +1,6 @@
 /* CONFIGURACIÓN: reemplazar estos dos valores con los del proyecto Supabase del trabajo. */
-const SUPABASE_URL = "PEGA_AQUI_LA_URL_DEL_PROYECTO";
-const SUPABASE_ANON_KEY = "PEGA_AQUI_LA_PUBLISHABLE_KEY";
+const SUPABASE_URL = "https://qqezrhvqiaqjnoivkmtz.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_TMyGQiyBAa-z4YF4wt-hZw_BORiQV1C";
 
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PEGA_AQUI") && !SUPABASE_ANON_KEY.includes("PEGA_AQUI");
 const db = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
