@@ -1,5 +1,5 @@
 /* CONFIGURACIÓN: reemplazar estos dos valores con los del proyecto Supabase del trabajo. */
-const SUPABASE_URL = "https://qqezrhvqiaqjnoivkmtz.supabase.co";
+const SUPABASE_URL = "https://qqezrhvqiaqjnoivkmtz.supabase.co/rest/v1/";
 const SUPABASE_ANON_KEY = "https://qqezrhvqiaqjnoivkmtz.supabase.co/rest/v1/";
 
 const configured = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PEGA_AQUI") && !SUPABASE_ANON_KEY.includes("PEGA_AQUI");
